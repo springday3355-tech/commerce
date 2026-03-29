@@ -80,4 +80,4 @@ public class CommerceSystem {
     public Customer getCurrentCustomer() {
         return currentCustomer;
     }
-} // CommerceSystem 클래스 종료
+    }// CommerceSystem 클래스 종료
