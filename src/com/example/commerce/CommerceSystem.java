@@ -25,7 +25,8 @@ public class CommerceSystem {
             System.out.println("[실시간 커머스 플랫폼 - 전자제품]");
             int index = 1;
             for (Product product : products) { //목록 출력
-                System.out.println(index + "." + product.name + " | "+ df.format(product.price)+ " 원 | " + product.description );
+                System.out.println(index + "." + product.name + " | "+
+                        df.format(product.price)+ " 원 | " + product.description );
                 index++;
             }
 

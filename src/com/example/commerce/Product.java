@@ -1,7 +1,10 @@
 package com.example.commerce;
 
+import java.util.List;
+
 public class Product {
     // 속성
+
        String name;
        int price;
        String description;
