@@ -21,10 +21,12 @@ public class Category {
     public void addProduct(Product product){
         this.products.add(product);
     }
-    // 요구사항: 키테고리 이름 반환
+
+    // 요구사항: 카테고리 이름 반환
     public String getCategoryName() {
         return categoryName;
     }
+
     // 기능: 상품목록 반환
     public List<Product> getProducts() {
         return products;

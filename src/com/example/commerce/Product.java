@@ -1,14 +1,14 @@
 package com.example.commerce;
 
-import java.util.List;
-
 public class Product {
+    public int getName;
     // 속성
 
-       String name;
-       int price;
-       String description;
-       int stock;
+    // 1.캡슐화
+       private String name;
+       private int price;
+       private String description;
+       private int stock;
 
 
        // 생성자
@@ -19,9 +19,20 @@ public class Product {
         this.stock=stock;
 
     }
+    // 2. 외부에서 데이터 가져가기 위해 getter메서드 추가
 
+    public String getName() {return name;}
 
-    // 기능
+    public int getPrice() {return price;}
+
+    public String getDescription() {
+        return description;
+    }
+
+    public int getStock() {
+        return stock;
+    }
+
 
 
 
