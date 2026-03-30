@@ -24,12 +24,15 @@ public class ShoppingCart {
     }
     // 4. 메서드 2 / - 장바구니 보기
     public void displayCart(){
+        int total = 0; // 1. 합계를 저장할 변수를 0으로 시작함
         System.out.println("--- 장바구니 목록 ---");
-        for(CartItem item : items){
-            System.out.println("상품명: " + item.getProduct().getName()
-            + " | 수량: " + item.getQuantity()
-            + " | 가격: " + (item.getProduct().getPrice() * item.getQuantity()) + "원");
+
+        for(CartItem item : items) {
+            System.out.println(item.getName() + " | " + item.getQuantity() + "개"); // 2. 바구니에 든 물건들 하나씩 보여주기
+            total += (item.getPrice() * item.getQuantity()); // 가격 * 수량 계산해서 합계에 계속 더하기
         }
+        // 4. 마지막에 총 금액 출력
+        System.out.println("총 결제 금액: " + total + "원");
     }
 
 }
