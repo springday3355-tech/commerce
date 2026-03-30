@@ -1,7 +1,7 @@
 package com.example.commerce;
 
 public class Product {
-    public int getName;
+    public String getName;
     // 속성
 
     // 1.캡슐화

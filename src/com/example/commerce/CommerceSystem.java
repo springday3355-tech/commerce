@@ -4,6 +4,9 @@ import java.text.DecimalFormat;
 import java.util.Scanner;
 
 public class CommerceSystem {
+    // 1. 장바구니 상품추가
+    ShoppingCart cart = new ShoppingCart();
+
 
     private Customer currentCustomer;
 
@@ -42,6 +45,8 @@ public class CommerceSystem {
                 break;
             }
 
+
+
             if (mainChoice == 1) {
                 while (true) {
                     System.out.println("\n[" + currentCategory.getCategoryName() + " 카테고리 ]");
@@ -53,12 +58,20 @@ public class CommerceSystem {
                     }
                     System.out.println("0. 뒤로가기");
                     System.out.print("입력: ");
+
                     int productChoice = sc.nextInt();
 
                     if (productChoice == 0) break;
 
-                    if (productChoice > 0 && productChoice <= currentCategory.getProducts().size()) {
+                    if (productChoice < 1 || productChoice > currentCategory.getProducts().size()){
+                        System.out.println("유효하지  않은 상품 번호입니다 다시 선택해주세요");
+                        continue;
+                    }
+
+                    if (productChoice > 0 ) {
                         Product selectedProduct = currentCategory.getProducts().get(productChoice - 1);
+                        // 장바구니에 추가(아래)
+                        cart.addProduct(selectedProduct, 1);
                         System.out.println("\n[상품 상세 정보]");
                         System.out.println("명칭: " + selectedProduct.getName());
                         System.out.println("가격: " + df.format(selectedProduct.getPrice()) + "원");
@@ -68,6 +81,7 @@ public class CommerceSystem {
                     } else {
                         System.out.println("번호를 다시 확인해주세요.");
                     }
+
                 }
             } else if (mainChoice == 2 || mainChoice == 3) {
                 System.out.println("준비 중인 카테고리입니다.");
