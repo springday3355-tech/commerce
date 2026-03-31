@@ -33,6 +33,17 @@ public class Product {
         return stock;
     }
 
+    public void reduceStock(int quantity){
+        if(this.stock < quantity){
+            System.out.println("에러: 재고가 부족합니다! (현재 재고: " + this.stock + ")" );
+            return;// 재고 없으면 여기서 메서드 종료함
+        }
+        // 재고 충분하면 현재 내 재고에서 수량 뺌
+        this.stock = this.stock - quantity;
+
+
+    }
+
 
 
 
