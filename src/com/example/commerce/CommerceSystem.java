@@ -2,6 +2,7 @@ package com.example.commerce;
 
 import java.text.DecimalFormat;
 import java.util.Scanner;
+import java.util.logging.SocketHandler;
 
 public class CommerceSystem {
     // 1. 장바구니 상품추가
@@ -82,7 +83,14 @@ public class CommerceSystem {
                     int cartChoice = sc.nextInt();
 
                     if (cartChoice == 1) {
-                        // ★ 재고 확인 로직
+                        selectedProduct.reduceStock(1);
+                        ShoppingCart shoppingCart = new ShoppingCart();
+                        System.out.println("장바구니에 추가되었습니다.");
+                    } else if (cartChoice == 2) {
+                        System.out.println("취소 되었습니다.");
+                    } else {
+                        System.out.println("잘못된 입력입니다.");
+                    //  재고 확인 로직
                         if (selectedProduct.getStock() > 0) {
                             cart.addProduct(selectedProduct, 1);
                         } else {
