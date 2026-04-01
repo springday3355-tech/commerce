@@ -29,3 +29,7 @@ Lv.1
 11. CartItem에 담긴 상품 객체와 Product가 같은 객체를 바라보고 있다는 걸 알게되었는데, CartItem 내부에서 재고를 줄이면 메인의 상품 상세정보에서도 동시에 재고가 줄어든다
 
 Lv.2
+1. Administrator(관리자) 객체 생성해서 CommerceSystem 필드에 private final Administrator administrator = new Administrator(); 추가함
+2. if문에  6. 관리자 모드 추가하고 위에서 만든 runAdminMode()를 호출함
+3. 관리자 인증  메서드 만들어서 비밀번호 3회 초과 입력시 틀렸다는 메세지 출력 후메인메뉴로 돌아가게 하고 3회 미만 입력시 관리자 메뉴로 들어가게 설정함
+4. 상품 추가 메서드 만들어서 이름,가격,설명,수량 추가 가능하게 만들고 리스트에 추가하는 기능 구현함 
