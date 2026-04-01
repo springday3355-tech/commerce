@@ -12,7 +12,7 @@ public class ShoppingCart {
 
     // 2. 생성자 / 초기화
     public ShoppingCart() {
-        this.itemsMap = new HashMap<>();
+        itemsMap = new HashMap<>();
     }
 
     public boolean isEmpty() {

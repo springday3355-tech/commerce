@@ -2,10 +2,10 @@ package com.example.commerce;
 
 public class CartItem {
     // 속성
-    private String name;
-    private int price;
+    private final String name;
+    private final int price;
     private int quantity;
-    private Product product;
+    private final Product product;
 
     // 생성자
     public CartItem(String name, int price, int quantity, Product product){

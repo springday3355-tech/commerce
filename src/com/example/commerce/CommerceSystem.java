@@ -10,6 +10,8 @@ public class CommerceSystem {
     private final Scanner sc = new Scanner(System.in);
 
     private Customer currentCustomer;
+    private Administrator administrator = new Administrator();
+    private Category Category;
 
     public CommerceSystem() {
         // 생성자는 비워두거나 super() 호출 가능
@@ -39,6 +41,7 @@ public class CommerceSystem {
             System.out.println("3. 식품");
             System.out.println("4. 장바구니 보기");
             System.out.println("0. 종료 | 프로그램 종료");
+            System.out.println("6. 관리자 모드");
             System.out.print("입력: ");
 
             // ★ 수정 1: 메인 메뉴 번호를 먼저 받아야 함
@@ -112,10 +115,59 @@ public class CommerceSystem {
             }
 
             }
-        }
+        }// start() 메서드 종료
 
     public Customer getCurrentCustomer() {
         return currentCustomer;
     }
+
+    // **관리자 인증 로직**
+    private void runAdminMode(){
+        int failCount = 0; // 비밀번호 틀린 횟수 저장할 변수
+        while (failCount < 3){
+            System.out.println("관리자 비밀번호를 입력하세요: ");
+            String input = sc.next(); // 사용자에게 비번 입력받기
+
+            
+            if (administrator.authenticate(input)){
+                System.out.println("인증 성공! 관리자 메뉴로 진입합니다...");
+                showAdminMenu(); // 인증 성공시 관리자 메뉴로
+                return; // 메서드 종료
+            } else{
+                failCount ++; // 틀렸으니 획수 1 증가
+                System.out.println("비밀번호가 틀렸습니다.(" + failCount + "/3");
+            }
+        }
+        System.out.println("3회 실패하여 메인으로 돌아갑니다.");
+    }
+
+    private void showAdminMenu() {
+    }
+    
+    // **상품 추가 로직**
+    private void addProductMode(Category category) { // 어떤 카테고리에 추가할지 정보받음
+        System.out.println("\n[ " + category.getCategoryName() + " 상품 추가 모드 ]");
+        System.out.println("상품명을 입력해주세요: ");
+        String name = sc.next();
+        // * 중복검사 *
+        if (administrator.isDuplicate(Category, name)) {
+            System.out.println("이미 존재하는 상품명입니다. 등록을 취소합니다");
+            return; // 중복이면 여기서 중단함
+        }
+        System.out.println("어느 카테고리에 상품을 추가 하시겠습니까?");
+        System.out.println("가격을 입력해주세요: ");
+        int price = sc.nextInt();
+        System.out.println("상품 설명을 입력해주세요: ");
+        String desc = sc.next();
+        System.out.println("재고 수량을 입력해주세요: ");
+        int stock = sc.nextInt();
+
+        // 모든 정보 입력하면 새로운 상품 객체 생성
+        Product product = new Product(name, price, desc, stock);
+
+        // 카테고리 리스트에 등록
+        category.addProduct(product);
+        System.out.println("신규 상품이 성공적으로 등록되었습니다.");
+    }
 }
-    // start() 메서드 종료
+
