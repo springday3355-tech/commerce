@@ -6,8 +6,8 @@ import java.util.logging.SocketHandler;
 
 public class CommerceSystem {
     // 1. 장바구니 상품추가
-    private ShoppingCart shoppingCart = new ShoppingCart();
-    private Scanner sc = new Scanner(System.in);
+    private final ShoppingCart shoppingCart = new ShoppingCart();
+    private final Scanner sc = new Scanner(System.in);
 
     private Customer currentCustomer;
 
@@ -17,6 +17,7 @@ public class CommerceSystem {
     public void start() {
         // 1. 고객 및 데이터 초기화
         currentCustomer = new Customer("송이", "springday3355@gmail.com", "VIP");
+        System.out.println(currentCustomer.getName() + "님, 환영합니다!" + ( currentCustomer.getGrade() + " 등급"));
         Product p1 = new Product("Galaxy S26", 1200000, "최신 안드로이드 스마트폰", 10);
         Product p2 = new Product("iPhone 17", 1350000, "Apple의 최신 스마트폰", 17);
         Product p3 = new Product("MacBook Pro", 2400000, "M3 칩셋이 탑재된 노트북", 8);
@@ -112,5 +113,9 @@ public class CommerceSystem {
 
             }
         }
+
+    public Customer getCurrentCustomer() {
+        return currentCustomer;
     }
+}
     // start() 메서드 종료
