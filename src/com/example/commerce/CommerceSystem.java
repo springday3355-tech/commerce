@@ -17,10 +17,10 @@ public class CommerceSystem {
     public void start() {
         // 1. 고객 및 데이터 초기화
         currentCustomer = new Customer("송이", "springday3355@gmail.com", "VIP");
-        Product p1 = new Product("Galaxy S26", 1200000, "최신 안드로이드 스마트폰", 24);
+        Product p1 = new Product("Galaxy S26", 1200000, "최신 안드로이드 스마트폰", 10);
         Product p2 = new Product("iPhone 17", 1350000, "Apple의 최신 스마트폰", 17);
         Product p3 = new Product("MacBook Pro", 2400000, "M3 칩셋이 탑재된 노트북", 8);
-        Product p4 = new Product("AirPods Pro 3", 350000, "노이즈 캔슬링 무선 이어폰", 35);
+        Product p4 = new Product("AirPods Pro 3", 350000, "노이즈 캔슬링 무선 이어폰", 4);
 
         Category currentCategory = new Category(" 전자제품");
         currentCategory.addProduct(p1);
@@ -65,7 +65,7 @@ public class CommerceSystem {
 
                     // ★ 3번 예외처리: 목록 범위를 벗어난 경우
                     if (productChoice < 1 || productChoice > currentCategory.getProducts().size()) {
-                        System.out.println("⚠️ 유효하지 않은 상품 번호입니다. 다시 선택해주세요.");
+                        System.out.println("️ 유효하지 않은 상품 번호입니다. 다시 선택해주세요.");
                         continue;
                     }
                     // ★ 수정 2: 상품 상세 정보 보여주기
@@ -82,33 +82,31 @@ public class CommerceSystem {
                     int cartChoice = sc.nextInt();
 
                     if (cartChoice == 1) {
-                        selectedProduct.reduceStock(1);
                         shoppingCart.addProduct(selectedProduct, 1);
-                        System.out.println("장바구니에 추가되었습니다.");
                     } else if (cartChoice == 2) {
-                        System.out.println("재고가 부족합니다.");
-                    } else {
                         System.out.println("취소 되었습니다.");
-                    //  재고 확인 로직
-                        if (selectedProduct.getStock() > 0) {
-                            shoppingCart.addProduct(selectedProduct, 1);
-                        } else {
-                            System.out.println("⚠️ 죄송합니다. 재고가 부족합니다.");
-                        }
+                    } else {
+                        System.out.println("잘못된 입력입니다.");
                     }
                 }
-            } else if (mainChoice == 3) {
-                System.out.println("\n[ 최종 주문을 진행합니다.]");
-
                 //장바구니 목록 & 총액
                 shoppingCart.displayCart();
-                // 주문확정 후 비움
-                shoppingCart.order();
-            } else if (mainChoice == 4) {
-                shoppingCart.displayCart(); // 상단의 cart 호출
-            } else if (mainChoice  == 2) {
+
+                if(!shoppingCart.isEmpty()){//장바구니가 비어있지 않을 때만 물음
+                    System.out.println("\n1. 주문 확정 | 2. 메인으로 돌아가기");
+                    System.out.println("입력: ");
+                    int orderConfirm = sc.nextInt();
+                    if (orderConfirm == 1){
+                        shoppingCart.order();
+
+                    } else if (orderConfirm == 2){
+                        System.out.println("메인 메뉴로 돌아갑니다.");
+                    }
+
+                }
+            } else if (mainChoice == 2 || mainChoice  == 3) {
                 System.out.println("준비 중인 카테고리입니다.");
-            } else {
+            } else  {
                 System.out.println("잘못된 입력입니다.");
             }
 

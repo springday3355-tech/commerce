@@ -23,4 +23,8 @@ public class CartItem {
     }
     public int getQuantity() {return quantity;}
     public Product getProduct() {return product;}
+
+    public void addQuantity(int extraQuantity) {
+        this.quantity += extraQuantity;
+    }
 }
