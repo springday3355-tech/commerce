@@ -12,6 +12,7 @@ public class CommerceSystem {
     private Customer currentCustomer;
     private Administrator administrator = new Administrator();
     private Category Category;
+    private Category currentCategory;
 
     public CommerceSystem() {
         // 생성자는 비워두거나 super() 호출 가능
@@ -31,7 +32,6 @@ public class CommerceSystem {
         currentCategory.addProduct(p3);
         currentCategory.addProduct(p4);
 
-        Scanner sc = new Scanner(System.in);
         DecimalFormat df = new DecimalFormat("#,###");
 
         while (true) {
@@ -44,7 +44,7 @@ public class CommerceSystem {
             System.out.println("6. 관리자 모드");
             System.out.print("입력: ");
 
-            // ★ 수정 1: 메인 메뉴 번호를 먼저 받아야 함
+            //  수정 1: 메인 메뉴 번호를 먼저 받아야 함
             int mainChoice = sc.nextInt();
 
             if (mainChoice == 0) {
@@ -67,12 +67,12 @@ public class CommerceSystem {
                     int productChoice = sc.nextInt();
                     if (productChoice == 0) break;
 
-                    // ★ 3번 예외처리: 목록 범위를 벗어난 경우
+                    // 3번 예외처리: 목록 범위를 벗어난 경우
                     if (productChoice < 1 || productChoice > currentCategory.getProducts().size()) {
                         System.out.println("️ 유효하지 않은 상품 번호입니다. 다시 선택해주세요.");
                         continue;
                     }
-                    // ★ 수정 2: 상품 상세 정보 보여주기
+                    // 수정 2: 상품 상세 정보 보여주기
                     Product selectedProduct = currentCategory.getProducts().get(productChoice - 1);
                     System.out.println("\n[상품 상세 정보]");
                     System.out.println("명칭: " + selectedProduct.getName());
@@ -81,7 +81,7 @@ public class CommerceSystem {
                     System.out.println("재고: " + selectedProduct.getStock() + "개");
                     System.out.println("--------------------------");
 
-                    // ★ 수정 3: 상세 정보 본 후에 "담기/취소" 물어보기
+                    // 수정 3: 상세 정보 본 후에 "담기/취소" 물어보기
                     System.out.println("장바구니에 추가하시겠습니까? (1.추가 / 2.취소)");
                     int cartChoice = sc.nextInt();
 
@@ -92,29 +92,37 @@ public class CommerceSystem {
                     } else {
                         System.out.println("잘못된 입력입니다.");
                     }
-                }
                 //장바구니 목록 & 총액
                 shoppingCart.displayCart();
 
-                if(!shoppingCart.isEmpty()){//장바구니가 비어있지 않을 때만 물음
+                if(!shoppingCart.isEmpty()) {//장바구니가 비어있지 않을 때만 물음
                     System.out.println("\n1. 주문 확정 | 2. 메인으로 돌아가기");
                     System.out.println("입력: ");
                     int orderConfirm = sc.nextInt();
-                    if (orderConfirm == 1){
+                    if (orderConfirm == 1) {
                         shoppingCart.order();
 
-                    } else if (orderConfirm == 2){
+                    } else if (orderConfirm == 2) {
                         System.out.println("메인 메뉴로 돌아갑니다.");
                     }
-
+                }
                 }
             } else if (mainChoice == 2 || mainChoice  == 3) {
                 System.out.println("준비 중인 카테고리입니다.");
-            } else  {
+            } else if (mainChoice == 4){ //장바구니 로직
+                shoppingCart.displayCart();
+                if(!shoppingCart.isEmpty()){
+                    System.out.println("\n1. 주문 확정 | 2. 메인으로 돌아가기");
+                    int orderConfirm = sc.nextInt();
+                    if (orderConfirm == 1) shoppingCart.order();
+                }
+            } else if (mainChoice == 6) {
+                runAdminMode();
+            } else {
                 System.out.println("잘못된 입력입니다.");
             }
 
-            }
+        }
         }// start() 메서드 종료
 
     public Customer getCurrentCustomer() {
@@ -134,7 +142,7 @@ public class CommerceSystem {
                 showAdminMenu(); // 인증 성공시 관리자 메뉴로
                 return; // 메서드 종료
             } else{
-                failCount ++; // 틀렸으니 획수 1 증가
+                failCount ++; // 틀렸으니 횟수 1 증가
                 System.out.println("비밀번호가 틀렸습니다.(" + failCount + "/3");
             }
         }
@@ -142,6 +150,25 @@ public class CommerceSystem {
     }
 
     private void showAdminMenu() {
+        while(true) {
+            System.out.println("\n[ 관리자 모드 ]");
+            System.out.println("1. 상품 추가 ");
+            System.out.println("2. 상품 수정 ");
+            System.out.println("3. 상품 삭제 ");
+            System.out.println("4. 전체 상품 상황 ");
+            System.out.println("0. 메인으로 돌아가기 ");
+
+            int adminChoice = sc.nextInt();
+
+            if (adminChoice == 1) {
+                addProductMode(currentCategory);
+            } else if (adminChoice == 0) {
+                System.out.println("관리자 모드를 종료하고 메인으로 돌아갑니다.");
+                break; // while문 탈출 -> 메인으로
+            } else {
+                System.out.println("잘못된 입력입니다.");
+            }
+        }
     }
     
     // **상품 추가 로직**
